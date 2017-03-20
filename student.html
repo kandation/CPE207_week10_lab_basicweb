@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Show Score</title>
+  <style media="screen">
+    input {
+      width: 23%;
+      height: 50px;
+      font-size: 1.2em;
+    }
+
+    body{
+      background: #672d9b;
+    }
+    #hdd{
+      background-color: #dbbaf4;
+      font-size: 1.2em;
+      font-style: bold;
+      align-content: center;
+      text-align: center;
+    }
+    tr{
+      background-color: #f5edfc;
+      text-align: center;
+    }
+    .conner{
+      text-align: center;
+    }
+    #data{
+      margin: auto;
+    }
+    .box{
+      padding: 2.36%  5.3%;
+      margin: 10% 13%;
+      background: #fff;
+    }
+    .me{
+      text-align: center;
+      margin: auto 40%;
+    }
+    img{
+      -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    }
+    img:hover{
+      -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+    }
+  </style>
+  <script type="text/javascript">
+  var lock = false;
+    function show_table(){
+      if(!lock){
+        var obj = document.getElementById("data");
+        var list_name = new Array(["Akkhaporn",90], ["B", 50], ["D",15], ["E",56]
+        , ["F", 66], ["G", 77], ["H", 99], ["I",23], ["J",0],["K",69]);
+
+        var table = "<center><table border=\"0px\" width=\"80%\">";
+        var grade ="";
+        var gpa = 0;
+        var min = list_name[0][1];
+        var max = list_name[0][1];
+        table += "<tr id=\"hdd\"><td>Name</td><td width=\"12%\">Score</td><td width=\"12%\">Grade</td></tr>";
+        var sum = 0;
+
+        for (var i = 0; i < list_name.length; i++) {
+          table += "<tr>";
+          for (var j = 0; j < list_name[i].length; j++) {
+            table += "<td>"+list_name[i][j]+"</td>";
+          }
+          grade = cal_grade(list_name[i][1]);
+          table += "<td>"+grade+"</td>";
+          /* Find min-max */
+          if (list_name[i][1]<min){
+            min = list_name[i][1];
+          }
+          if(list_name[i][1]>max){
+            max = list_name[i][1];
+          }
+          sum += list_name[i][1];
+          gpa += cal_gpa(grade);
+          table += "</tr>";
+        }
+          table += "</table>";
+          obj.innerHTML += table;
+          obj.innerHTML += "<div class=\"me\">";
+          obj.innerHTML += "MEAN  \t: "+(sum/list_name.length)+"<br\>";
+          obj.innerHTML += "GPA   \t: "+(gpa/list_name.length)+"<br\>";
+          obj.innerHTML += "Min   \t: "+(min)+"<br\>";
+          obj.innerHTML += "Max   \t: "+(max)+"<br\>";
+          obj.innerHTML += "</div></center>";
+          document.getElementById("btn").value = "ดรอปไหม";
+          document.getElementById("recom").style = "display:show;"
+          lock = true;
+      }
+
+    }
+
+    function cal_grade(input){
+      var ret = "Error";
+      if(input>=80)ret ="A";
+      else if (input>=75) ret = "B+";
+      else if (input>=70) ret = "B";
+      else if (input>=65) ret = "C+";
+      else if (input>=60) ret = "C";
+      else if (input>=55) ret = "D+";
+      else if (input>=50) ret = "D";
+      else ret = "F";
+      return ret;
+    }
+
+    function cal_gpa(input){
+      var r = 0;
+      switch (input) {
+        case "A":r = 4;break;
+        case "B+":r = 3.5;break;
+        case "B":r = 3;break;
+        case "C+":r = 2.5;break;
+        case "C":r = 2;break;
+        case "D+":r = 1.5;break;
+        case "D":r = 1;break;
+        case "F":r = 0;break;
+        default:r= 0;break;
+      }
+      return r;
+    }
+
+
+  </script>
+</head>
+<body><center>
+  <div class="box">
+    <div class="conner">
+      <input type="button" name="btn" id="btn" value="Show score" onclick="javascript:show_table();">
+      <div id="recom" style="display:none;">
+        <a href="https://www1.reg.cmu.ac.th/web/reg-files/reg-dropw.pdf">[ดรอป]</a>
+        <a href="https://www1.reg.cmu.ac.th/web/reg-files/reg-resign.pdf">[ลาออก]</a></div>
+    </div>
+    <div id="data"></div>
+    <a href="https://github.com"><img src="github.png" width=120px alt=""></a>
+    <a href="https://google.co.th"><img src="Google.png" width=100px alt=""></a>
+  </div></center>
+</body>
+</html>
